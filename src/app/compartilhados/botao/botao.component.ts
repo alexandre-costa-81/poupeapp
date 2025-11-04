@@ -6,6 +6,4 @@ import { Component, input } from '@angular/core';
   templateUrl: './botao.component.html',
   styleUrl: './botao.component.css'
 })
-export class BotaoComponent {
-  texto = input.required<string>();
-}
+export class BotaoComponent {}
