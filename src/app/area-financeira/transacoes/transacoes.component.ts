@@ -7,7 +7,7 @@ import { BotaoAdicionarTransacaoComponent } from "./botao-adicionar-transacao/bo
 
 @Component({
   selector: 'app-transacoes',
-  imports: [TransacaoComponent, BotaoComponent, CardComponent, BotaoAdicionarTransacaoComponent],
+  imports: [TransacaoComponent, CardComponent, BotaoAdicionarTransacaoComponent],
   templateUrl: './transacoes.component.html',
   styleUrl: './transacoes.component.css'
 })
