@@ -1,4 +1,4 @@
-<dialog #modal class="dialog">
+<dialog #modal class="dialog" (close)="fecharModal()">
   <button (click)="fecharModal()" class="fechar-modal">
     <img src="icones/fechar.svg" alt="Fechar modal" aria-hidden="true" />
   </button>
