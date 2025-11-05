@@ -1,14 +1,17 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { BotaoComponent } from "../../compartilhados/botao/botao.component";
 import { ContaComponent } from "./conta/conta.component";
 import { Conta } from '../compartilhados/conta.model';
+import { BotaoAdicionarContaComponent } from "./botao-adicionar-conta/botao-adicionar-conta.component";
 
 @Component({
   selector: 'app-contas',
-  imports: [BotaoComponent, ContaComponent],
+  imports: [ContaComponent, BotaoAdicionarContaComponent],
   templateUrl: './contas.component.html',
   styleUrl: './contas.component.css'
 })
 export class ContasComponent {
   contas = input.required<Conta[]>();
+
+  contaCriada = output<Conta>();
 }
