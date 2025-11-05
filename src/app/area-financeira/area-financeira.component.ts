@@ -14,48 +14,7 @@ import { Transacao, TipoTransacao } from './compartilhados/transacao.model';
 export class AreaFinanceiraComponent {
   saldo = 1;
 
-  transacoes = signal<Transacao[]>([
-    {
-      id: '5',
-      nome: '',
-      tipo: TipoTransacao.SAQUE,
-      valor: 200,
-      data: new Date('2025-02-20T00:00'),
-      conta: 'Switch Bank'
-    },
-    {
-      id: '4',
-      nome: 'Almoço',
-      tipo: TipoTransacao.SAQUE,
-      valor: 40,
-      data: new Date('2025-01-15T00:00'),
-      conta: 'Bytebank'
-    },
-    {
-      id: '3',
-      nome: '',
-      tipo: TipoTransacao.DEPOSITO,
-      valor: 400,
-      data: new Date('2025-01-10T00:00'),
-      conta: 'Bytebank'
-    },
-    {
-      id: '2',
-      nome: 'Freela (2ª parte)',
-      tipo: TipoTransacao.DEPOSITO,
-      valor: 200,
-      data: new Date('2024-10-01T00:00'),
-      conta: 'Anybank'
-    },
-    {
-      id: '1',
-      nome: 'Freela (1ª parte)',
-      tipo: TipoTransacao.DEPOSITO,
-      valor: 100,
-      data: new Date('2024-10-01T00:00'),
-      conta: 'Anybank'
-    },
-  ]);
+  transacoes = signal<Transacao[]>([]);
 
   contasComSaldoInicial = signal<Conta[]>([]);
 
@@ -75,7 +34,23 @@ export class AreaFinanceiraComponent {
     this.contasComSaldoInicial.update((contas) => [...contas, conta]);
   }
 
-  calculaSaldoAtualizado(conta: Conta): number {
-    return conta.saldo + 20;
+  calculaSaldoAtualizado(contaInicial: Conta) {
+    const transacoesDaConta = this.transacoes().filter(transacao => {
+      return transacao.conta === contaInicial.nome;
+    });
+
+    const novoSaldo = transacoesDaConta.reduce((saldo, transacao) => {
+      switch (transacao.tipo) {
+        case TipoTransacao.DEPOSITO:
+          return saldo + transacao.valor;
+        case TipoTransacao.SAQUE:
+          return saldo - transacao.valor;
+        default:
+          transacao.tipo satisfies never;
+          throw new Error('Tipo de transação desconhecido: ' + transacao.tipo);
+      }
+    }, contaInicial.saldo);
+
+    return novoSaldo;
   }
 }
