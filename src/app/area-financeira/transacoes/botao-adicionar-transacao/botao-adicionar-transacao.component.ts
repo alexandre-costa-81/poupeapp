@@ -1,8 +1,9 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { BotaoComponent } from "../../../compartilhados/botao/botao.component";
 import { ModalComponent } from "../../../compartilhados/modal/modal.component";
 import { FormsModule } from "@angular/forms";
 import { TipoTransacao, Transacao } from '../../compartilhados/transacao.model';
+import { Conta } from '../../compartilhados/conta.model';
 
 @Component({
   selector: 'app-botao-adicionar-transacao',
@@ -12,6 +13,8 @@ import { TipoTransacao, Transacao } from '../../compartilhados/transacao.model';
 })
 export class BotaoAdicionarTransacaoComponent {
   modalAberto = signal(false);
+
+  contas = input.required<Conta[]>();
 
   novaTransacaoForm = {
     nome: '',
