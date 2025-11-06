@@ -12,7 +12,11 @@ import { Transacao, TipoTransacao } from './compartilhados/transacao.model';
   styleUrl: './area-financeira.component.css'
 })
 export class AreaFinanceiraComponent {
-  saldo = 1;
+  saldo = computed(() => {
+    return this.contas().reduce((acc, conta) => {
+      return acc + conta.saldo;
+    }, 0);
+  });
 
   transacoes = signal<Transacao[]>([]);
 
